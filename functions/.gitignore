@@ -7,3 +7,6 @@ typings/
 
 # Node.js dependency directory
 node_modules/
+
+# Admin SDK.json
+flowus-app-dev-fb-admin-sdk-key.json

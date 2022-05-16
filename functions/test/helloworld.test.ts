@@ -1,6 +1,16 @@
 import "jest";
-// import * as functions from "firebase-functions-test";
+import helloWorld from "../src/functions/helloworld";
+import Message from "../src/types/message";
 
-test("2+2 = 4", () => {
-  expect(2 + 2).toBe(4);
+describe("helloworld", () => {
+  test("it should run", () => {
+    const req = { body: { data: {} } };
+    const res = {
+      on: (response: Message) => {
+        expect(response).toBe({ text: "Hello from Firebase!", code: 200 });
+      },
+    };
+
+    helloWorld(req as any, res as any);
+  });
 });

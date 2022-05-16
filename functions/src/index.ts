@@ -1,7 +1,5 @@
-import * as admin from "firebase-admin";
-
 import helloWorldHandler from "./functions/helloworld";
-
-admin.initializeApp();
+import verifyHandler from "./functions/verify";
 
 exports.helloWorld = helloWorldHandler;
+exports.verify = verifyHandler;

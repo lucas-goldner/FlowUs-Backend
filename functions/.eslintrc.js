@@ -3,7 +3,7 @@ module.exports = {
   env: {
     es6: true,
     node: true,
-    "jest/globals": true,
+    jest: true,
   },
   extends: [
     "eslint:recommended",
@@ -13,6 +13,7 @@ module.exports = {
     "google",
     "plugin:@typescript-eslint/recommended",
     "prettier",
+    "plugin:jest/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -23,9 +24,14 @@ module.exports = {
   ignorePatterns: [
     "/lib/**/*", // Ignore built files.
   ],
-  plugins: ["@typescript-eslint", "import", "prettier"],
+  plugins: ["@typescript-eslint", "import", "prettier", "jest"],
   rules: {
     "prettier/prettier": ["error"],
     "import/no-unresolved": 0,
+  },
+  settings: {
+    jest: {
+      version: 28,
+    },
   },
 };
