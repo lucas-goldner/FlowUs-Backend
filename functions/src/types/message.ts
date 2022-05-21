@@ -1,5 +1,5 @@
 type Message = {
-  text: string;
+  message: string;
   code: number;
 };
 

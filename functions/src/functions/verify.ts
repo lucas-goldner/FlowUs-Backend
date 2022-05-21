@@ -14,7 +14,7 @@ const verifyHandler = region("europe-west1").https.onCall((_, context) => {
   }
 
   const message: Message = {
-    text: result,
+    message: result,
     code: 200,
   };
 

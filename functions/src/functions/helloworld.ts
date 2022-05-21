@@ -8,7 +8,7 @@ const helloWorldHandler = region("europe-west1").https.onCall((_, context) => {
 
   logger.info("Hello logs!", { structuredData: true });
   const message: Message = {
-    text: "Hello from Firebase!",
+    message: "Hello from Firebase!",
     code: 200,
   };
   return message;
