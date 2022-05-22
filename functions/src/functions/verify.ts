@@ -2,8 +2,9 @@ import "dotenv/config";
 import { region, https, logger } from "firebase-functions/v1";
 import { VERFIY_CODES_PATH } from "../helpers/constants";
 import { db } from "../helpers/firebaseServices";
-import * as nodemailer from "nodemailer";
 import Message from "../types/message";
+import * as nodemailer from "nodemailer";
+import * as fs from "fs";
 
 const verifyHandler = region("europe-west1").https.onCall(async (data, context) => {
   if (context.app == undefined) {
@@ -45,11 +46,13 @@ const verifyHandler = region("europe-west1").https.onCall(async (data, context) 
     },
   });
 
+  const mailContent = fs.readFileSync(__dirname + "/../assets/verifyEmail.html", "utf-8");
+
   const mailOptions = {
     from: '"Lucas 🍋" <lucas@flowus.io>',
     to: data.email,
-    subject: "Welcome to FlowUs 🌎 - Verify now ✔️", // Subject line
-    html: "mailContent", //
+    subject: "Welcome to FlowUs 🌎 - Verify now ✔️",
+    html: mailContent,
   };
 
   await transporter.sendMail(mailOptions).catch((e: Error) => {
