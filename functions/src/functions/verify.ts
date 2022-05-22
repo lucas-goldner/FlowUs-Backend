@@ -1,6 +1,6 @@
 import { region, https } from "firebase-functions/v1";
-import { VERFIY_CODES_PATH } from "../helpers/constants";
-import { db } from "../helpers/firebaseServices";
+// import { VERFIY_CODES_PATH } from "../helpers/constants";
+// import { db } from "../helpers/firebaseServices";
 import Message from "../types/message";
 
 const verifyHandler = region("europe-west1").https.onCall(async (data, context) => {
@@ -8,16 +8,16 @@ const verifyHandler = region("europe-west1").https.onCall(async (data, context) 
     throw new https.HttpsError("failed-precondition", "The function must be called from an App Check verified app.");
   }
 
-  if (data == undefined || data.userName == undefined) {
+  if (data == undefined || data.userName == undefined || data.locale == undefined) {
     const message: Message = {
-      message: "Data is missing",
+      message: "Not all data was provided",
       code: 400,
     };
 
     return message;
   }
 
-  const uid = context?.auth?.uid;
+  // const uid = context?.auth?.uid;
   let result = "";
   const characters = "0123456789";
   const charactersLength = characters.length;
@@ -26,10 +26,10 @@ const verifyHandler = region("europe-west1").https.onCall(async (data, context) 
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
 
-  await db.collection(VERFIY_CODES_PATH).doc().set({
-    user: uid,
-    code: result,
-  });
+  // await db.collection(VERFIY_CODES_PATH).doc().set({
+  //   user: uid,
+  //   code: result,
+  // });
 
   const message: Message = {
     message: result,

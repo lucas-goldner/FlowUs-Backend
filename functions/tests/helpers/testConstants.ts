@@ -12,3 +12,5 @@ export const anyContext = {
     uid: anyUID,
   },
 };
+export const anyLocale = "en";
+export const anyUsername = "anyUsername";
