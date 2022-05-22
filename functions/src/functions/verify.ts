@@ -5,6 +5,7 @@ import { db } from "../helpers/firebaseServices";
 import Message from "../types/message";
 import * as nodemailer from "nodemailer";
 import * as fs from "fs";
+import i18n from "../helpers/locales";
 
 const verifyHandler = region("europe-west1").https.onCall(async (data, context) => {
   if (context.app == undefined) {
@@ -46,7 +47,20 @@ const verifyHandler = region("europe-west1").https.onCall(async (data, context) 
     },
   });
 
-  const mailContent = fs.readFileSync(__dirname + "/../assets/verifyEmail.html", "utf-8");
+  i18n.setLocale(data.locale);
+
+  let mailContent = fs.readFileSync(__dirname + "/../assets/verifyEmail.html", "utf-8");
+  mailContent = mailContent.replace(/WELCOME/g, i18n.__("Welcome"));
+  mailContent = mailContent.replace(/STEPS/g, i18n.__("List"));
+  mailContent = mailContent.replace(/VERIFY/g, i18n.__("Verify"));
+  mailContent = mailContent.replace(/BUTTON/g, i18n.__("Button"));
+  mailContent = mailContent.replace(/NAME/g, data.userName);
+  mailContent = mailContent.replace(/DATE/g, new Date().toDateString());
+  mailContent = mailContent.replace(/NUMBER/g, result);
+  mailContent = mailContent.replace(/DYNAMIC_LINK/g, "https://flowus.io");
+  mailContent = mailContent.replace(/DEAR/g, i18n.__("Dear"));
+  mailContent = mailContent.replace(/SINCERELY/g, i18n.__("Sincerely"));
+  mailContent = mailContent.replace(/CTO/g, i18n.__("CTO"));
 
   const mailOptions = {
     from: '"Lucas 🍋" <lucas@flowus.io>',

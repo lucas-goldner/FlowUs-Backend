@@ -17,7 +17,7 @@ import { verify } from "../src";
 describe('Testing "verification"', () => {
   it("test verification function works", async () => {
     const data = {
-      locale: "en",
+      locale: "de",
       userName: anyUsername,
       email: "lucas.goldner@googlemail.com",
     };
