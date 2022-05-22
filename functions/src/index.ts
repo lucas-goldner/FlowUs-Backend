@@ -1,8 +1,10 @@
-import helloWorldHandler from "./functions/helloworld";
-import verifyHandler from "./functions/verify";
 import * as admin from "firebase-admin";
 
+// Needs to be initialized first otherwise tests throw errors
 admin.initializeApp();
 
-exports.helloWorld = helloWorldHandler;
-exports.verify = verifyHandler;
+import helloWorldHandler from "./functions/helloworld";
+import verifyHandler from "./functions/verify";
+
+export const helloWorld = helloWorldHandler;
+export const verify = verifyHandler;
